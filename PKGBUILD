@@ -14,6 +14,9 @@ makedepends=('nasm' 'cmake' 'ninja' 'doxygen')
 source=(https://github.com/xiph/flac/releases/download/${pkgver}/flac-${pkgver}.tar.xz)
 b2sums=('c4f441aeaa0493433347b8a110ca01865fd40d5b21150174372af2fee4fa5c3397a67add31138e92999eab9d9abe6c46a5ac29e13cbac60093fbff6d7a672ad3')
 
+# https://github.com/xiph/flac/releases
+sha256sums=('6c58e69cd22348f441b861092b825e591d0b822e106de6eb0ee4d05d27205b70')
+
 prepare() {
   cd flac-${pkgver}
 
