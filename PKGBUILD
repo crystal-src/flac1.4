@@ -1,10 +1,9 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
-pkgbase=flac
-pkgname=('flac' 'flac-doc')
+pkgname=flac1.4
 pkgver=1.4.3
-pkgrel=2
+pkgrel=1
 pkgdesc='Free Lossless Audio Codec'
 url='https://xiph.org/flac/'
 arch=('x86_64')
@@ -28,42 +27,24 @@ build() {
   cmake -S flac-${pkgver} -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_PROGRAMS=OFF \
+    -DBUILD_EXAMPLES=OFF \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_DOCS=OFF \
     -DBUILD_SHARED_LIBS=ON \
-    -DINSTALL_MANPAGES=ON \
+    -DINSTALL_MANPAGES=OFF \
+    -DINSTALL_PKGCONFIG_MODULES=OFF \
+    -DINSTALL_CMAKE_CONFIG_MODULE=OFF \
     -DWITH_STACK_PROTECTOR=OFF \
     -DNDEBUG=ON
   cmake --build build
-
-  # Build docs and place them where install expects them
-  cmake --build build --target FLAC-doxygen
-  mv build/doc/doxytmp/html flac-${pkgver}/doc/api
 }
 
-check() {
-  cd build
-  ctest --output-on-failure --stop-on-failure -j1
-}
-
-package_flac() {
-  provides=('libFLAC.so' 'libFLAC++.so')
+package() {
+  provides=('libFLAC.so.12' 'libFLAC++.so.10')
 
   DESTDIR="${pkgdir}" cmake --install build
-
-  install -Dm 644 flac-${pkgver}/src/*/*.m4 -t "${pkgdir}/usr/share/aclocal"
-
-  mkdir -p doc/usr/share
-  mv {"${pkgdir}",doc}/usr/share/doc
-
-  install -Dm 644 flac-${pkgver}/COPYING.Xiph -t "${pkgdir}/usr/share/licenses/${pkgname}"
-}
-
-package_flac-doc() {
-  pkgdesc+=' documentation'
-  depends=()
-
-  mv doc/* "$pkgdir"
-
-  install -Dm 644 flac-${pkgver}/COPYING.Xiph -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  rm -rf "${pkgdir}/usr/lib/libFLAC.so" "${pkgdir}/usr/lib/libFLAC++.so" "${pkgdir}/usr/include"
 }
 
 # vim:set sw=2 sts=-1 et:

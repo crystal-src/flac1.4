@@ -1,7 +1,7 @@
-pkgbase = flac
+pkgbase = flac1.4
 	pkgdesc = Free Lossless Audio Codec
 	pkgver = 1.4.3
-	pkgrel = 2
+	pkgrel = 1
 	url = https://xiph.org/flac/
 	arch = x86_64
 	license = BSD
@@ -16,10 +16,6 @@ pkgbase = flac
 	sha256sums = 6c58e69cd22348f441b861092b825e591d0b822e106de6eb0ee4d05d27205b70
 	b2sums = c4f441aeaa0493433347b8a110ca01865fd40d5b21150174372af2fee4fa5c3397a67add31138e92999eab9d9abe6c46a5ac29e13cbac60093fbff6d7a672ad3
 
-pkgname = flac
-	provides = libFLAC.so
-	provides = libFLAC++.so
-
-pkgname = flac-doc
-	pkgdesc = Free Lossless Audio Codec documentation
-	depends = 
+pkgname = flac1.4
+	provides = libFLAC.so.12
+	provides = libFLAC++.so.10
