@@ -41,7 +41,7 @@ build() {
 }
 
 package() {
-  provides=('libFLAC.so.12' 'libFLAC++.so.10')
+  provides=('libFLAC.so=12-64' 'libFLAC++.so=10-64')
 
   DESTDIR="${pkgdir}" cmake --install build
   rm -rf "${pkgdir}/usr/lib/libFLAC.so" "${pkgdir}/usr/lib/libFLAC++.so" "${pkgdir}/usr/include"
